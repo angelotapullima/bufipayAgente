@@ -1,3 +1,4 @@
+import 'package:bufipay_agente/src/bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
 
 class ProviderBloc extends InheritedWidget {
@@ -11,8 +12,14 @@ class ProviderBloc extends InheritedWidget {
     return _instancia;
   }
 
+  final loginBloc = LoginBloc();
+
   ProviderBloc._internal({Key key, Widget child}) : super(key: key, child: child);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
+
+  static LoginBloc of(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).loginBloc;
+  }
 }
