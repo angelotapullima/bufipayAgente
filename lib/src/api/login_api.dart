@@ -26,19 +26,24 @@ class LoginApi {
       if (code == 1) {
         print('token ${decodedData['data']['tn']}');
 
-        prefs.idUser = decodedData['data']['c_u'];
-        prefs.userNickname = decodedData['data']['_n'];
-        prefs.userEmail = decodedData['data']['u_e'];
-        prefs.userEmailValidateCode = decodedData['data']['u_ve'];
-        prefs.image = decodedData['data']['u_i'];
-        prefs.personName = decodedData['data']['p_n'];
-        prefs.personSurname = '${decodedData['data']['p_p']} ${decodedData['data']['p_m']}';
-        prefs.personAddress = decodedData['data']['p_d'];
-        prefs.idRol = decodedData['data']['ru'];
-        prefs.rolNombre = decodedData['data']['rn'];
-        prefs.ubigeoId = decodedData['data']['u_u'];
-        prefs.token = decodedData['data']['tn'];
-        prefs.tokenFirebase = decodedData['data']['u_tk'];
+        if (decodedData['data']['agente'] != 0) {
+          //Agregar idUser BufiPay
+          prefs.idUserBufiPay = decodedData['data']['id_bufipay'];
+
+          //Agregar idAgente BufiPay
+          prefs.idAgente = decodedData['data']['agente'].toString();
+
+          prefs.userNickname = decodedData['data']['_n'];
+          prefs.userEmail = decodedData['data']['u_e'];
+          prefs.image = decodedData['data']['u_i'];
+          prefs.personName = decodedData['data']['p_n'];
+          prefs.personSurname = '${decodedData['data']['p_p']} ${decodedData['data']['p_m']}';
+          prefs.ubigeoId = decodedData['data']['u_u'];
+          prefs.token = decodedData['data']['tn'];
+        } else {
+          loginModel.code = '2';
+          loginModel.message = 'Usuario ingresado no es es una Cuenta Agente BufiCard';
+        }
 
         return loginModel;
       } else {

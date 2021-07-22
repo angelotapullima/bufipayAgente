@@ -3,6 +3,7 @@ import 'package:bufipay_agente/src/theme/theme.dart';
 import 'package:bufipay_agente/src/utils/responsive.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -20,15 +21,19 @@ class HomePage extends StatelessWidget {
             color: BufiPayColors.darkBlue,
           ),
           Positioned(
-            bottom: responsive.hp(60),
+            bottom: responsive.hp(71),
             left: 0,
             right: 0,
-            child: Container(height: responsive.hp(40), child: Image.asset('assets/img/BUFI_AGENTE.png') //Image.asset('assets/logo_largo.svg'),
+            child: Container(
+                height: responsive.hp(18), child: SvgPicture.asset('assets/svg/AGENTE_BUFI_SIN_FONDO.svg') //Image.asset('assets/logo_largo.svg'),
                 ),
           ),
           SafeArea(
               child: Column(
             children: [
+              SizedBox(
+                height: responsive.hp(1),
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: responsive.wp(3)),
                 child: Row(
@@ -68,6 +73,17 @@ class HomePage extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
                       ),
+                    ),
+                    Spacer(),
+                    InkWell(
+                      onTap: () {
+                        preferences.clearPreferences();
+                        Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
+                      },
+                      child: Icon(
+                        Icons.exit_to_app,
+                        color: Colors.white,
+                      ),
                     )
                   ],
                 ),
@@ -87,14 +103,36 @@ class HomePage extends StatelessWidget {
                   ),
                   color: BufiPayColors.whiteColor),
               child: Padding(
-                padding: EdgeInsets.only(top: responsive.hp(12), left: responsive.wp(5), right: responsive.wp(5)),
+                padding: EdgeInsets.only(top: responsive.hp(5), left: responsive.wp(5), right: responsive.wp(5)),
                 child: Column(
                   children: [
                     Row(
                       children: [
-                        _cards(responsive, Icons.payment_outlined, 'Confirmar recarga', Colors.amber),
+                        SizedBox(
+                          width: responsive.wp(5),
+                        ),
+                        Icon(
+                          Icons.food_bank_outlined,
+                          color: BufiPayColors.greenColor,
+                          size: responsive.ip(5),
+                        ),
+                        SizedBox(
+                          width: responsive.wp(5),
+                        ),
+                        Text(
+                          '${preferences.agenteNombre}',
+                          style: TextStyle(fontSize: responsive.ip(4)),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: responsive.hp(3),
+                    ),
+                    Row(
+                      children: [
+                        _cards(context, responsive, Icons.payment_outlined, 'Confirmar recarga', BufiPayColors.greenColor, 'confirmarRecarga'),
                         Spacer(),
-                        _cards(responsive, Icons.money, 'Recargar mi cuenta', Colors.amber),
+                        _cards(context, responsive, Icons.money, 'Recargar mi cuenta', BufiPayColors.greenColor, 'recargarCuenta'),
                       ],
                     ),
                     SizedBox(
@@ -102,9 +140,9 @@ class HomePage extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        _cards(responsive, Icons.payment_outlined, 'Ver mis movimientos', Colors.amber),
+                        _cards(context, responsive, Icons.payment_outlined, 'Ver mis movimientos', BufiPayColors.greenColor, 'movimientos'),
                         Spacer(),
-                        _cards(responsive, Icons.person, 'Información personal', Colors.amber),
+                        _cards(context, responsive, Icons.person, 'Información cuenta', BufiPayColors.greenColor, 'infoCuenta'),
                       ],
                     )
                   ],
@@ -117,9 +155,11 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _cards(Responsive responsive, IconData icon, String titulo, Color color) {
+  Widget _cards(BuildContext context, Responsive responsive, IconData icon, String titulo, Color color, String page) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, page);
+      },
       child: Container(
         height: responsive.hp(20),
         width: responsive.wp(40),

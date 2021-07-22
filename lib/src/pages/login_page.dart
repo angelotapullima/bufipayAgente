@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bufipay_agente/src/api/cuenta_agente_api.dart';
 import 'package:bufipay_agente/src/api/login_api.dart';
 import 'package:bufipay_agente/src/bloc/login_bloc.dart';
 import 'package:bufipay_agente/src/bloc/provider_bloc.dart';
@@ -60,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
     //final bloc = ProviderBloc.of(context);
     final size = MediaQuery.of(context).size;
 
-    final String assetName = 'assets/img/BUFI_AGENTE.png';
+    final String assetName = 'assets/svg/AGENTE_BUFI_SIN_FONDO.svg';
     return SafeArea(
       child: Container(
         child: ListView(
@@ -69,15 +70,15 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: size.height * 0.17,
             ),
-            Image.asset(
+            SvgPicture.asset(
               assetName,
-              height: size.height * 0.3,
-              width: size.width * 0.3,
+              height: size.height * 0.17,
+              width: size.width * 0.17,
               fit: BoxFit.contain,
             ),
-            // SizedBox(
-            //   height: size.height * 0.1,
-            // ),
+            SizedBox(
+              height: size.height * 0.1,
+            ),
             Container(
               padding: EdgeInsets.symmetric(
                 horizontal: responsive.wp(7),
@@ -225,7 +226,14 @@ class _LoginPageState extends State<LoginPage> {
     final LoginModel code = await bloc.login('${bloc.usuario}', '${bloc.password}');
 
     if (code.code == '1') {
-      Navigator.pushReplacementNamed(context, 'homePage');
+      final cuentaAgenteApi = CuentaAgenteApi();
+      final CuentaAgenteModel cuenta = await cuentaAgenteApi.obtenerCuentaAgenteBufi();
+
+      if (cuenta.code == '1') {
+        Navigator.pushReplacementNamed(context, 'homePage');
+      } else {
+        showToast2('${cuenta.message}', Colors.black);
+      }
     } else if (code.code == '2') {
       showToast2('${code.message}', Colors.red);
     } else if (code.code == '3') {

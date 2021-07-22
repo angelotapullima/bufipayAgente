@@ -20,7 +20,7 @@ class _SplashState extends State<Splash> with AfterLayoutMixin<Splash> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final preferences = Preferences();
 
-      if (preferences.idUser.toString().isEmpty || preferences.idUser == null) {
+      if (preferences.idAgente.toString().isEmpty || preferences.idAgente == null || preferences.idAgente == '0') {
         Navigator.pushReplacementNamed(context, 'login');
       } else {
         Navigator.pushReplacementNamed(context, 'homePage');
@@ -47,9 +47,12 @@ class _SplashState extends State<Splash> with AfterLayoutMixin<Splash> {
           // ),
           Center(
             child: Container(
-              child: Image.asset(
-                'assets/img/BUFI_AGENTE.png',
+              child: SvgPicture.asset(
+                'assets/svg/agente_bufi.svg',
               ),
+              // Image.asset(
+              //   'assets/img/BUFI_AGENTE.png',
+              // ),
             ),
           ),
           /*  Center(

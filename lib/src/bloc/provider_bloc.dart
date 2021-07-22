@@ -1,3 +1,4 @@
+import 'package:bufipay_agente/src/bloc/confirmar_recarga_bloc.dart';
 import 'package:bufipay_agente/src/bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class ProviderBloc extends InheritedWidget {
   }
 
   final loginBloc = LoginBloc();
+  final confirmarRecargaBloc = ConfirmarRecargaBloc();
 
   ProviderBloc._internal({Key key, Widget child}) : super(key: key, child: child);
 
@@ -21,5 +23,9 @@ class ProviderBloc extends InheritedWidget {
 
   static LoginBloc of(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).loginBloc;
+  }
+
+  static ConfirmarRecargaBloc confirmarRecarga(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).confirmarRecargaBloc;
   }
 }

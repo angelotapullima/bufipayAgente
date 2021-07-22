@@ -1,4 +1,8 @@
 import 'package:bufipay_agente/src/bloc/provider_bloc.dart';
+import 'package:bufipay_agente/src/pages/ConfirmarRecarga/confirmar_recarga_page.dart';
+import 'package:bufipay_agente/src/pages/InformacionCuenta/info_cuenta_page.dart';
+import 'package:bufipay_agente/src/pages/MovimientosCuenta/movimientos_cuenta_page.dart';
+import 'package:bufipay_agente/src/pages/RecargarCuenta/recarga_cuenta_page.dart';
 import 'package:bufipay_agente/src/pages/home_page.dart';
 import 'package:bufipay_agente/src/pages/login_page.dart';
 import 'package:bufipay_agente/src/pages/splash.dart';
@@ -55,6 +59,10 @@ class _MyAppState extends State<MyApp> {
           'splash': (BuildContext context) => Splash(),
           'homePage': (BuildContext context) => HomePage(),
           'login': (BuildContext context) => LoginPage(),
+          'confirmarRecarga': (BuildContext context) => ConfirmarRecargaPage(),
+          'recargarCuenta': (BuildContext context) => RecargaCuentaPage(),
+          'movimientos': (BuildContext context) => MovimientosCuentaPage(),
+          'infoCuenta': (BuildContext context) => InfoCuentaPage(),
         },
       ),
     );
