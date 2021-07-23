@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bufipay_agente/src/api/cuenta_agente_api.dart';
 import 'package:bufipay_agente/src/model/recarga_consultada_codigo_model.dart';
 import 'package:bufipay_agente/src/preferences/preferences.dart';
 import 'package:bufipay_agente/src/utils/constants.dart';
@@ -7,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 class RecargaAgenteApi {
   final preferences = Preferences();
+  final cuentaAgenteApi = CuentaAgenteApi();
 
   Future<RecargaConsultadaPorCodigoModel> obtenerRecargaPorCodigoRecarga(String codigoRecarga) async {
     try {
@@ -57,12 +59,11 @@ class RecargaAgenteApi {
 
       final decodedData = json.decode(resp.body);
       print('Resultado guardar recarga : $decodedData');
-      return decodedData['result']['code'];
+
       // if (decodedData['result']['code'] == 1) {
-      //   return 1;
-      // } else {
-      //   return 2;
+      //   await cuentaAgenteApi.obtenerCuentaAgenteBufi();
       // }
+      return decodedData['result']['code'];
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
       return 2;

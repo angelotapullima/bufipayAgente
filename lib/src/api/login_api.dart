@@ -24,8 +24,6 @@ class LoginApi {
       loginModel.message = decodedData['result']['message'];
 
       if (code == 1) {
-        print('token ${decodedData['data']['tn']}');
-
         if (decodedData['data']['agente'] != 0) {
           //Agregar idUser BufiPay
           prefs.idUserBufiPay = decodedData['data']['id_bufipay'];

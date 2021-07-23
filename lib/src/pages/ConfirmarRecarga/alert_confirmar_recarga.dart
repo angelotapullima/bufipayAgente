@@ -83,12 +83,16 @@ class _ConfirmarRecargaState extends State<ConfirmarRecarga> {
                                     showToast2('Recarga confirmada con éxito!!!', BufiPayColors.greenColor);
                                     final confirmarRecargaBloc = ProviderBloc.confirmarRecarga(context);
                                     confirmarRecargaBloc.obtenerRecargaPorCodigoRecarga();
+                                    final cuentaBloc = ProviderBloc.cuenta(context);
+                                    cuentaBloc.obtenerDetalleCuenta();
                                     Navigator.pop(context);
+                                    //Navigator.pushReplacementNamed(context, 'homePage');
                                   } else if (res == 9) {
                                     showToast2('Saldo insuficiente', Colors.redAccent);
                                     final confirmarRecargaBloc = ProviderBloc.confirmarRecarga(context);
                                     confirmarRecargaBloc.obtenerRecargaPorCodigoRecarga();
                                     Navigator.pop(context);
+                                    //Navigator.pushReplacementNamed(context, 'homePage');
                                   } else {
                                     showToast2('Ocurrió un error, intétalo más tarde', Colors.redAccent);
                                     final confirmarRecargaBloc = ProviderBloc.confirmarRecarga(context);

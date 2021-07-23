@@ -27,15 +27,24 @@ class DatabaseProvider {
     }
 
     return await openDatabase(path, version: 1, onOpen: (db) {}, onConfigure: _onConfigure, onCreate: (Database db, int version) async {
+      await db.execute(' CREATE TABLE Cuenta('
+          ' idCuenta TEXT PRIMARY KEY,'
+          ' numeroCuenta TEXT,'
+          ' saldo TEXT,'
+          ' monedaCuenta TEXT,'
+          ' estadoCuenta TEXT'
+          ')');
+
       await db.execute(' CREATE TABLE MovimientosCuenta('
           ' idMovimiento TEXT PRIMARY KEY,'
           ' numeroOperacion TEXT,'
-          ' idEmpresa TEXT,'
-          ' idPago TEXT,'
+          ' cuentaEmisor TEXT,'
+          ' cuentaReceptor TEXT,'
           ' monto TEXT,'
           ' concepto TEXT,'
           ' fecha TEXT,'
-          ' estado TEXT'
+          ' estado TEXT,'
+          ' tipoMovimiento TEXT'
           ')');
     });
   }

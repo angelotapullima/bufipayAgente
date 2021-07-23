@@ -8,12 +8,12 @@ class MovimientosCuentaDatabase {
     try {
       final db = await dbprovider.database;
 
-      final res = await db.rawInsert("INSERT OR REPLACE INTO MovimientosCuenta (idMovimiento,numeroOperacion,idEmpresa,"
-          "idPago,monto,concepto,fecha,estado) "
+      final res = await db.rawInsert("INSERT OR REPLACE INTO MovimientosCuenta (idMovimiento,numeroOperacion,cuentaEmisor,"
+          "cuentaReceptor,monto,concepto,fecha,estado,tipoMovimiento) "
           "VALUES ('${movimientocuenta.idMovimiento}','${movimientocuenta.numeroOperacion}',"
-          "'${movimientocuenta.idEmpresa}','${movimientocuenta.idPago}',"
+          "'${movimientocuenta.cuentaEmisor}','${movimientocuenta.cuentaReceptor}',"
           "'${movimientocuenta.monto}','${movimientocuenta.concepto}',"
-          "'${movimientocuenta.fecha}','${movimientocuenta.estado}')");
+          "'${movimientocuenta.fecha}','${movimientocuenta.estado}','${movimientocuenta.tipoMovimiento}')");
 
       return res;
     } catch (exception) {

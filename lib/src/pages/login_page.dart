@@ -226,9 +226,10 @@ class _LoginPageState extends State<LoginPage> {
     final LoginModel code = await bloc.login('${bloc.usuario}', '${bloc.password}');
 
     if (code.code == '1') {
+      bloc.changeCargando(true);
       final cuentaAgenteApi = CuentaAgenteApi();
       final CuentaAgenteModel cuenta = await cuentaAgenteApi.obtenerCuentaAgenteBufi();
-
+      bloc.changeCargando(false);
       if (cuenta.code == '1') {
         Navigator.pushReplacementNamed(context, 'homePage');
       } else {

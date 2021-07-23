@@ -1,4 +1,5 @@
 import 'package:bufipay_agente/src/bloc/confirmar_recarga_bloc.dart';
+import 'package:bufipay_agente/src/bloc/cuenta_bloc.dart';
 import 'package:bufipay_agente/src/bloc/login_bloc.dart';
 import 'package:bufipay_agente/src/bloc/movimientos_cuenta_bloc.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class ProviderBloc extends InheritedWidget {
   }
 
   final loginBloc = LoginBloc();
+  final cuentaBloc = CuentaBloc();
   final confirmarRecargaBloc = ConfirmarRecargaBloc();
   final movimientosCuentaBloc = MovimientosCuentaBloc();
 
@@ -33,5 +35,9 @@ class ProviderBloc extends InheritedWidget {
 
   static MovimientosCuentaBloc movimientosCuenta(BuildContext context) {
     return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).movimientosCuentaBloc;
+  }
+
+  static CuentaBloc cuenta(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<ProviderBloc>()).cuentaBloc;
   }
 }

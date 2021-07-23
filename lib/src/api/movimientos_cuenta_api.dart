@@ -17,18 +17,20 @@ class MovimientosCuentaApi {
       final resp = await http.post(url, body: {'app': 'true', 'tn': prefs.token, 'id_cuenta': prefs.idCuenta});
 
       final decodedData = json.decode(resp.body);
+      print(decodedData);
 
-      if (decodedData['result']['data'] != 2) {
+      if (decodedData['result']['code'] == 1) {
         for (int i = 0; i < decodedData['result']['data'].length; i++) {
           MovimientosCuentaModel movimientoCuenta = MovimientosCuentaModel();
-          movimientoCuenta.idMovimiento = decodedData['result']['data'][i]['id_transferencia_u_e'];
-          movimientoCuenta.numeroOperacion = decodedData['result']['data'][i]['transferencia_u_e_nro_operacion'];
-          movimientoCuenta.idEmpresa = decodedData['result']['data'][i]['id_empresa'];
-          movimientoCuenta.idPago = decodedData['result']['data'][i]['id_pago'];
-          movimientoCuenta.monto = decodedData['result']['data'][i]['transferencia_u_e_monto'];
-          movimientoCuenta.concepto = decodedData['result']['data'][i]['transferencia_u_e_concepto'];
-          movimientoCuenta.fecha = decodedData['result']['data'][i]['transferencia_u_e_date'];
-          movimientoCuenta.estado = decodedData['result']['data'][i]['transferencia_u_e_estado'];
+          movimientoCuenta.idMovimiento = decodedData['result']['data'][i]['id_transferencia'];
+          movimientoCuenta.numeroOperacion = decodedData['result']['data'][i]['transferencia_nro_operacion'];
+          movimientoCuenta.cuentaEmisor = decodedData['result']['data'][i]['cuenta_emisor'];
+          movimientoCuenta.cuentaReceptor = decodedData['result']['data'][i]['cuenta_receptor'];
+          movimientoCuenta.monto = decodedData['result']['data'][i]['transferencia_monto'];
+          movimientoCuenta.concepto = decodedData['result']['data'][i]['transferencia_concepto'];
+          movimientoCuenta.fecha = decodedData['result']['data'][i]['transferencia_datetime'];
+          movimientoCuenta.estado = decodedData['result']['data'][i]['transferencia_estado'];
+          movimientoCuenta.tipoMovimiento = decodedData['result']['data'][i]['movimiento'].toString();
 
           await movimientosCuentaDatabase.insertarMovimientosCuenta(movimientoCuenta);
         }
